@@ -11,9 +11,16 @@ namespace KomodoClaimsDepartment
     {
         protected readonly List<ClaimClass> _claimDirectory = new List<ClaimClass>();
         //create
+        public bool CreateClaim(ClaimClass content)
+        {
+            int startingCount = _claimDirectory.Count;
+            _claimDirectory.Add(content);
+            bool wasadded = _claimDirectory.Count > startingCount;
+            return wasadded;
+        }
 
         //Read
-        public List<ClaimClass> GeClaims()
+        public List<ClaimClass> GetClaims()
         {
             return _claimDirectory;
         }

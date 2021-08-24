@@ -17,7 +17,7 @@ namespace KomodoClaimsDepartment
         public ClaimType ClaimType { get; set; }
        
 
-
+        public ClaimClass() { }
         public ClaimClass(int claimID, ClaimType claimType, string description, double claimAmount, DateTime dateOfIncident , DateTime dateOfClaim, bool isValid)
         {
             ClaimID = claimID;
@@ -29,5 +29,5 @@ namespace KomodoClaimsDepartment
             IsValid = isValid;
         }
     }
-    public enum ClaimType { Car = 1, Home, Theft }
+    public enum ClaimType { Car = 1, Home, Theft, NA }
 }
