@@ -1,0 +1,7 @@
+C:\Users\Andrew Simmons\Desktop\ElevenFiftyProjects\GoldBageConsoleApps\KomodoClaimsDepartment\bin\Debug\KomodoClaimsDepartment.exe.config
+C:\Users\Andrew Simmons\Desktop\ElevenFiftyProjects\GoldBageConsoleApps\KomodoClaimsDepartment\bin\Debug\KomodoClaimsDepartment.exe
+C:\Users\Andrew Simmons\Desktop\ElevenFiftyProjects\GoldBageConsoleApps\KomodoClaimsDepartment\bin\Debug\KomodoClaimsDepartment.pdb
+C:\Users\Andrew Simmons\Desktop\ElevenFiftyProjects\GoldBageConsoleApps\KomodoClaimsDepartment\obj\Debug\KomodoClaimsDepartment.csproj.AssemblyReference.cache
+C:\Users\Andrew Simmons\Desktop\ElevenFiftyProjects\GoldBageConsoleApps\KomodoClaimsDepartment\obj\Debug\KomodoClaimsDepartment.csproj.CoreCompileInputs.cache
+C:\Users\Andrew Simmons\Desktop\ElevenFiftyProjects\GoldBageConsoleApps\KomodoClaimsDepartment\obj\Debug\KomodoClaimsDepartment.exe
+C:\Users\Andrew Simmons\Desktop\ElevenFiftyProjects\GoldBageConsoleApps\KomodoClaimsDepartment\obj\Debug\KomodoClaimsDepartment.pdb

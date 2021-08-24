@@ -10,7 +10,7 @@ namespace KomodoClaimsDepartment
     {
         static void Main(string[] args)
         {
-            ClaimProgram ui = new ClaimProgram();
+            ClaimProgramUI ui = new ClaimProgramUI();
             ui.Run();
         }
     }

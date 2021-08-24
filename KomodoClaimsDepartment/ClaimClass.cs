@@ -15,9 +15,10 @@ namespace KomodoClaimsDepartment
         public DateTime DateOfClaim { get; set; }
         public bool IsValid { get; set; }
         public ClaimType ClaimType { get; set; }
-        
+       
 
-        public ClaimClass(int claimID, ClaimType claimType, string description, double claimAmount, DateTime dateOfIncident, DateTime dateOfClaim, bool isValid)
+
+        public ClaimClass(int claimID, ClaimType claimType, string description, double claimAmount, DateTime dateOfIncident , DateTime dateOfClaim, bool isValid)
         {
             ClaimID = claimID;
             ClaimType = claimType;
