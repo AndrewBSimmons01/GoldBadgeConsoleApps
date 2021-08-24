@@ -24,15 +24,15 @@ namespace KomodoClaimsDepartment
         {
             return _claimDirectory;
         }
-        public ClaimClass GetClaimByID(int claimID)
+        public ClaimClass GetClaimByID(string claimID)
         {
             //List<ClaimClass> ClaimIDs = new List<ClaimClass>();
             foreach (ClaimClass item in _claimDirectory)
             {
-                Convert.ToString(claimID);
+                
                 if (item.ClaimID == claimID)
                 {
-                    Convert.ToString(item);
+                    
                     return item;
                 }
             }
@@ -42,7 +42,7 @@ namespace KomodoClaimsDepartment
         public bool  UpdateClaim(string oldData, ClaimClass newData)
         {
             
-            ClaimClass oldDatas = GetClaimByID(Convert.ToInt32(oldData));
+            ClaimClass oldDatas = GetClaimByID(oldData);
             if(oldDatas != null)
             {
                 oldDatas.ClaimID = newData.ClaimID;
@@ -50,7 +50,7 @@ namespace KomodoClaimsDepartment
                 oldDatas.Description = newData.Description;
                 oldDatas.ClaimAmount = newData.ClaimAmount;
                 oldDatas.DateOfIncident = newData.DateOfIncident;
-                oldDatas.IsValid = newData.IsValid;
+                
                 return true;
             }
             return false;

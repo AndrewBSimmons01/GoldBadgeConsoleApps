@@ -11,23 +11,26 @@ namespace KomodoClaimsDepartment
 
     {
         private readonly ClaimsRepo _repo = new ClaimsRepo();
-        DateTime dt2 = new DateTime(2015, 12, 31);
+        //DateTime dt2 = new DateTime(2015, 12, 31);
         public void Run()
         {
-            {
-
-                seedItems();
-                Menu();
-            }
-        }
+         SeedItems();
+         Menu();
+         }
         
-        public void seedItems()
+        public void SeedItems()
         {
-            ClaimClass cc1 = new ClaimClass(001, ClaimType.Home, "Electrical fire started in garage. Home is destroyed", 115000.68, new DateTime(2001, 2, 22), new DateTime(2001, 2, 23), true);
-            ClaimClass cc2 = new ClaimClass(002, ClaimType.Car, "Auto  Accident. Head-on. Driver did not survive.", 13000.22, new DateTime(2010, 5, 1), new DateTime(2010, 5, 5), true);
-            ClaimClass cc3= new ClaimClass(003, ClaimType.NA, "No Details", 00.00, new DateTime(2021,1,1), new DateTime(2021,1,1), false);
-            ClaimClass cc4 = new ClaimClass(004, ClaimType.NA, "No Details", 00.00, new DateTime(2021, 1, 1), new DateTime(2021, 1, 1), false);
-            ClaimClass cc5 = new ClaimClass(005, ClaimType.NA, "No Details", 00.00, new DateTime(2021, 1, 1), new DateTime(2021, 1, 1), false);
+            ClaimClass cC1 = new ClaimClass("001", ClaimType.Home, "Electrical fire started in garage. Home is destroyed", 115000.68, new DateTime(2001, 2, 22), new DateTime(2001, 2, 23), true);
+            ClaimClass cC2 = new ClaimClass("002", ClaimType.Car, "Auto  Accident. Head-on. Driver did not survive.", 13000.22, new DateTime(2010, 5, 1), new DateTime(2010, 5, 5), true);
+            ClaimClass cC3= new ClaimClass("003", ClaimType.NA, "No Details", 00.00, new DateTime(2021,1,1), new DateTime(2021,1,1), false);
+            ClaimClass cC4 = new ClaimClass("004", ClaimType.NA, "No Details", 00.00, new DateTime(2021, 1, 1), new DateTime(2021, 1, 1), false);
+            ClaimClass cC5 = new ClaimClass("005", ClaimType.NA, "No Details", 00.00, new DateTime(2021, 1, 1), new DateTime(2021, 1, 1), false);
+            _repo.CreateClaim(cC1);
+            _repo.CreateClaim(cC2);
+            _repo.CreateClaim(cC3);
+            _repo.CreateClaim(cC4);
+            _repo.CreateClaim(cC5);
+
 
         }
         public void Menu()
@@ -35,6 +38,7 @@ namespace KomodoClaimsDepartment
             bool running = true;
             while (running)
             {
+                Console.Clear();
                 Console.WriteLine("Claims Agent Menu\n\n\n\n" +
                     "Select Action\n\n\n" +
                     "1:See all claims\n\n" +
@@ -47,11 +51,12 @@ namespace KomodoClaimsDepartment
                     case "1":
                         DisplayAllClaims();
                         break;
-                    case "2":
-                        TakeCareOfNextClaim();
-                        break;
+                    //case "2":
+                        //TakeCareOfNextClaim();
+                        //break;
                     case "3":
-                        EnterNewClaim();
+                        AddNewClaim();
+                        break;
                     case "4":
                         running = false;
                         break;
@@ -68,22 +73,27 @@ namespace KomodoClaimsDepartment
         }
         public void DisplayAllClaims()
         {
-            Console.Clear();
+            
             List<ClaimClass> claims = _repo.GetClaims();
             foreach(ClaimClass claim in claims)
             {
                 DisplayClaims(claim);
             }
-            ContinueMessage();
+            
+            
         }
         public void DisplayClaims(ClaimClass claim)
         {
+            
             Console.WriteLine($"Claim ID: {claim.ClaimID} \n" +
                 $"Type: {claim.ClaimType})\n" +
                 $"Claim Amount: {claim.ClaimAmount}\n" +
                 $"Date of Claim: {claim.DateOfClaim}\n" +
                 $"Date of Incident: {claim.DateOfIncident}\n" +
                 $"Description: {claim.Description}\n\n\n\n");
+            ContinueMessage();
+            
+            
         }
         public void ContinueMessage()
         {
@@ -112,23 +122,24 @@ namespace KomodoClaimsDepartment
                 }
                 else
                 {
-                    claim.ClaimID = Convert.ToInt32(claimID);
+                    claim.ClaimID = claimID;
                 }
+                break;
             }
-            Console.Write("Type: ");
-            string description = Console.ReadLine();
-            if (string.IsNullOrEmpty(description))
-            {
-                Console.WriteLine("Please enter valid Type. Types are 'Car' 'Home' 'Theft' 'NA'");
-            }
-            else
-            {
-                ClaimType claimType = default;
-                claim.ClaimType = claimType;
-            }
+            Console.Clear();
+            Console.Write("Type: 1: Car\n" +
+                "2: Home\n" +
+                "3:Theft\n" +
+                "4: NA\n");
+            Console.WriteLine("Enter Type #");
+            string typeInput = Console.ReadLine();
+            int typeID = int.Parse(typeInput);
+            claim.ClaimType = (ClaimType)typeID;
+
+            Console.Clear();
             Console.WriteLine("Claim Amount : ");
             string claimAmount = Console.ReadLine();
-            if (string.IsNullOrEmpty(description))
+            if (string.IsNullOrEmpty(claimAmount))
             {
                 Console.WriteLine("Please Enter Valid Amount");
             }
@@ -136,6 +147,7 @@ namespace KomodoClaimsDepartment
             {
                 claim.ClaimAmount = Convert.ToDouble(claimAmount);
             }
+            Console.Clear();
             Console.WriteLine("Enter Date Of Incident ex. yyyy/mm/dd");
             string dateOfIncident = Console.ReadLine();
             if (string.IsNullOrEmpty(dateOfIncident))
@@ -146,17 +158,29 @@ namespace KomodoClaimsDepartment
             {
                 claim.DateOfIncident = Convert.ToDateTime(dateOfIncident);
             }
-            Console.WriteLine("Enter Date of Claim ex. yyyy/mm/dd. Date of Claim Must Not Be >= 30 Days From Date Of Incident.");
-
-            int days = Convert.ToInt32(claim.DateOfClaim) - Convert.ToInt32(claim.DateOfIncident);
-            if(days > 30)
+            Console.Clear();
+            Console.WriteLine("Enter Date of Claim ex. yyyy/mm/dd. Date of Claim Must Not Be > 30 Days From Date Of Incident.");
+            string dateOfClaim = (Console.ReadLine());
+            if (string.IsNullOrEmpty(dateOfClaim))
             {
+                Console.WriteLine("Please Enter Valid Date");
+            }
+            else
+            {
+                claim.DateOfClaim = Convert.ToDateTime(dateOfClaim);
+            }
+
+            Console.Clear();
+            if (claim.IsValid == false) 
+            {
+                
                 Console.WriteLine("Date of Claim Must Not Be > 30 Days From Date Of Incident.");
             }
             else
             {
-                claim.DateOfIncident = Convert.ToDateTime(dateOfIncident);
+                
             }
+            Console.Clear();
             Console.WriteLine("Please Enter A Description Of Claim");
             string claimDesription = Console.ReadLine();
             if (string.IsNullOrEmpty(claimDesription))
@@ -165,9 +189,12 @@ namespace KomodoClaimsDepartment
             }
             else
             {
-                claim.Description = description;
+                claim.Description = claimDesription;
             }
-
+            _repo.CreateClaim(claim);
+            Console.Clear();
+            Console.WriteLine("Claim Added");
+            Thread.Sleep(299);
         }
         public DateTime UserEnterDateTime()
         {
