@@ -41,14 +41,26 @@ namespace KomodoClaimsDepartment
 
             Queue<ClaimClass> claims = _repo.GetClaims();
             var viewnext = claims.Peek();
-            Console.WriteLine(viewnext);
             Console.WriteLine($"Claim ID: {viewnext.ClaimID} \n" +
               $"Type: {viewnext.ClaimID})\n" +
               $"Claim Amount: {viewnext.ClaimAmount}\n" +
               $"Date of Claim: {viewnext.DateOfClaim}\n" +
               $"Date of Incident: {viewnext.DateOfIncident}\n" +
               $"Description: {viewnext.Description}\n\n\n\n");
-            ContinueMessage();
+            Console.WriteLine("Do you want to deal with this claim now?");
+            string userInput = Console.ReadLine();
+            switch (userInput)
+            {
+                case "y":
+                    claims.Dequeue();
+                    break;
+                case "n":
+                    Console.WriteLine("goodbye");
+                    Thread.Sleep(400);
+                    break;
+
+
+            }
 
         }
 
