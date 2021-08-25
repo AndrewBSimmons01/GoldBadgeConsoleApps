@@ -8,9 +8,9 @@ namespace Badges
 {
     class Badge
     {
-        public string BadgeID { get; set; }
+        public int BadgeID { get; set; }
         public List<string> DoorAccess { get;  }
-        public Badge (string badgeID, List<string> doorAccess)
+        public Badge (int badgeID, List<string> doorAccess)
         {
             BadgeID = badgeID;
             DoorAccess = doorAccess;

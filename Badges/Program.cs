@@ -10,6 +10,8 @@ namespace Badges
     {
         static void Main(string[] args)
         {
+            BadgeProgramUI ui = new BadgeProgramUI();
+            ui.Run();
         }
     }
 }

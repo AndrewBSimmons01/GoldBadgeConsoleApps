@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Badges
 {
-    class BadgeUI
+    class BadgeProgramUI
     {
         public void Run()
         {
@@ -27,10 +27,11 @@ namespace Badges
                     AddABadge();
                     break;
                 case "2":
-                    EditABadge();
+                    EditABAdge();
                     break;
                 case "3":
                     ListAllBadges();
+                    break;
                 case "4":
                     Exit();
                     Console.Clear();
@@ -49,6 +50,10 @@ namespace Badges
 
         }
         public void ListAllBadges()
+        {
+
+        }
+        public void Exit()
         {
 
         }

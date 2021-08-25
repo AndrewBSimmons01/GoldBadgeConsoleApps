@@ -8,5 +8,6 @@ namespace Badges
 {
     class BadgeProgram
     {
+        
     }
 }
