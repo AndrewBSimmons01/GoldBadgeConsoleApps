@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,6 +21,7 @@ namespace KomodoClaimsDepartment
         
         public void SeedItems()
         {
+            
             ClaimClass cC1 = new ClaimClass("001", ClaimType.Home, "Electrical fire started in garage. Home is destroyed", 115000.68, new DateTime(2001, 2, 22), new DateTime(2001, 2, 23), true);
             ClaimClass cC2 = new ClaimClass("002", ClaimType.Car, "Auto  Accident. Head-on. Driver did not survive.", 13000.22, new DateTime(2010, 5, 1), new DateTime(2010, 5, 5), true);
             ClaimClass cC3= new ClaimClass("003", ClaimType.NA, "No Details", 00.00, new DateTime(2021,1,1), new DateTime(2021,1,1), false);
@@ -33,6 +35,24 @@ namespace KomodoClaimsDepartment
 
 
         }
+
+        public void TakeCareOfNextClaim()
+        {
+
+            Queue<ClaimClass> claims = _repo.GetClaims();
+            var viewnext = claims.Peek();
+            Console.WriteLine(viewnext);
+            Console.WriteLine($"Claim ID: {viewnext.ClaimID} \n" +
+              $"Type: {viewnext.ClaimID})\n" +
+              $"Claim Amount: {viewnext.ClaimAmount}\n" +
+              $"Date of Claim: {viewnext.DateOfClaim}\n" +
+              $"Date of Incident: {viewnext.DateOfIncident}\n" +
+              $"Description: {viewnext.Description}\n\n\n\n");
+            ContinueMessage();
+
+        }
+
+
         public void Menu()
         {
             bool running = true;
@@ -51,9 +71,9 @@ namespace KomodoClaimsDepartment
                     case "1":
                         DisplayAllClaims();
                         break;
-                    //case "2":
-                        //TakeCareOfNextClaim();
-                        //break;
+                    case "2":
+                        TakeCareOfNextClaim();
+                        break;
                     case "3":
                         AddNewClaim();
                         break;
@@ -74,7 +94,7 @@ namespace KomodoClaimsDepartment
         public void DisplayAllClaims()
         {
             
-            List<ClaimClass> claims = _repo.GetClaims();
+            Queue<ClaimClass> claims = _repo.GetClaims();
             foreach(ClaimClass claim in claims)
             {
                 DisplayClaims(claim);
@@ -160,26 +180,24 @@ namespace KomodoClaimsDepartment
             }
             Console.Clear();
             Console.WriteLine("Enter Date of Claim ex. yyyy/mm/dd. Date of Claim Must Not Be > 30 Days From Date Of Incident.");
-            string dateOfClaim = (Console.ReadLine());
+            string dateOfClaim = Console.ReadLine();
             if (string.IsNullOrEmpty(dateOfClaim))
+            {
+                Console.WriteLine("Please Enter Valid Date");
+
+            }
+            else if(!isValid)
             {
                 Console.WriteLine("Please Enter Valid Date");
             }
             else
             {
                 claim.DateOfClaim = Convert.ToDateTime(dateOfClaim);
+
             }
 
             Console.Clear();
-            if (claim.IsValid == false) 
-            {
-                
-                Console.WriteLine("Date of Claim Must Not Be > 30 Days From Date Of Incident.");
-            }
-            else
-            {
-                
-            }
+            
             Console.Clear();
             Console.WriteLine("Please Enter A Description Of Claim");
             string claimDesription = Console.ReadLine();

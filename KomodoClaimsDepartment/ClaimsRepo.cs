@@ -9,18 +9,18 @@ namespace KomodoClaimsDepartment
     class ClaimsRepo
 
     {
-        protected readonly List<ClaimClass> _claimDirectory = new List<ClaimClass>();
+        protected readonly Queue<ClaimClass> _claimDirectory = new Queue<ClaimClass>();
         //create
         public bool CreateClaim(ClaimClass content)
         {
             int startingCount = _claimDirectory.Count;
-            _claimDirectory.Add(content);
+            _claimDirectory.Enqueue(content);
             bool wasadded = _claimDirectory.Count > startingCount;
             return wasadded;
         }
 
         //Read
-        public List<ClaimClass> GetClaims()
+        public Queue<ClaimClass> GetClaims()
         {
             return _claimDirectory;
         }
@@ -57,8 +57,11 @@ namespace KomodoClaimsDepartment
         }
         public bool DeleteClaim(ClaimClass oldData)
         {
-            bool deleteClaim = _claimDirectory.Remove(oldData);
-            return deleteClaim;
+            int startingCount = _claimDirectory.Count;
+            _claimDirectory.Dequeue();
+            bool wasadded = _claimDirectory.Count > startingCount;
+            return wasadded;
+            
         }
             
 
