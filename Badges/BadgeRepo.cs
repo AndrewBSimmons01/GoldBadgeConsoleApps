@@ -27,10 +27,27 @@ namespace Badges
             //return _BadgeDirectory;
             return BadgeNumbers;
         }
-        //Update
-        public void UpdateBadgeDoors(Badge badge)
+        public KeyValuePair<int, List<string>> GetContentsById( int badgeId)
         {
-            
+            foreach(KeyValuePair<int, List<string>> item in _BadgeDirectory)
+            {
+                if (item.Key == badgeId)
+                {
+                    return item;
+                }
+            }
+            return default;
+        }
+        //Update
+        public bool UpdateBadgeDoors(int Id, Badge newBadge)
+        {
+            KeyValuePair<int, List<string>> oldBadge = GetContentsById(Id);
+            if (oldBadge.Key != null)
+            {
+                return oldBadge
+            }
+            oldBadge.BadgeID = newBadge.BadgeID;
+            oldBadge.DoorAccess = newBadge.DoorAccess;
         }
         //Delete
         public void DeleteAllDoors(Badge badge)

@@ -10,6 +10,7 @@ namespace Badges
     {
         public int BadgeID { get; set; }
         public List<string> DoorAccess { get;  }
+        public Badge() { }
         public Badge (int badgeID, List<string> doorAccess)
         {
             BadgeID = badgeID;

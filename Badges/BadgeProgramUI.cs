@@ -9,7 +9,7 @@ namespace Badges
 {
     class BadgeProgramUI
     {
-        protected readonly Dictionary<int, List<string>> _dict = new Dictionary<int, List<string>>();
+      
         protected readonly BadgeRepo _repo = new BadgeRepo();
        
       
@@ -62,11 +62,70 @@ namespace Badges
         {
             Console.Clear();
             Badge badge = new Badge();
+            bool running = true;
+            while (running)
+            {
+
+
+                Console.WriteLine("Badge ID: ");
+                int input = Convert.ToInt32(Console.ReadLine());
+
+                if (input >= 1000)
+                {
+                    Console.WriteLine("Enter Valid Badge ID");
+                }
+                else
+                {
+                    badge.BadgeID = input;
+                }
+                Console.Clear();
+                Console.WriteLine("What Doors Does This Badge Access?");
+                string badgedoor = Console.ReadLine();
+                if (string.IsNullOrEmpty(badgedoor))
+                {
+                    Console.WriteLine("Enter Valid Door Name");
+                }
+                else
+                {
+                    badge.DoorAccess.Add(badgedoor);
+                }
+
+
+            }
+           
 
         }
         public void EditABAdge()
         {
+            Console.Clear();
+            Console.WriteLine("What Badge Number Needs Updated?");
+            ListAllBadges();
+            int badgenumber = Convert.ToInt32(Console.ReadLine());
+            KeyValuePair<int , List<string>> badges = _repo.GetContentsById(badgenumber);
+            foreach (string item in badges.Value)
+            {
+            Console.WriteLine($"{badgenumber} has access to doors {item}");
+                
+            }
+            Console.WriteLine("What would you like to do?\n" +
+                "1. Remove A Door.\n" +
+                "2. Add A Door.\n\n\n");
+            string input = Console.ReadLine();
+            switch (input)
+            {
+                case "1":
+                    RemoveADoor();
+                    break;
+                case "2":
+                    AddADoor();
+                    break;
+                default:
+                    Console.WriteLine("Make Valid Selection");
+                    break;
+            }
 
+            
+         
         }
         public void ListAllBadges()
         {
