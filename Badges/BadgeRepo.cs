@@ -9,22 +9,23 @@ namespace Badges
     class BadgeRepo
     {
         protected readonly Dictionary <int, List<string>> _BadgeDirectory = new Dictionary<int, List<string>>();
-        
+        public List<Badge> BadgeNumbers = new List<Badge>();
         //Create
         public void AddBadge(Badge badge)
         {
             //int startingcount = _BadgeDirectory.Count;
             _BadgeDirectory.Add(badge.BadgeID, badge.DoorAccess);
+            BadgeNumbers.Add(badge);
             
         }
         //Read
         //public List<Badge> getcontents()
-        public void getcontents()
+        public List<Badge> getcontents()
         {
             //List<KeyValuePair<string , List<string> list = _BadgeDirectory.ToList();
             //listcontent = 
             //return _BadgeDirectory;
-            Console.WriteLine(_BadgeDirectory);
+            return BadgeNumbers;
         }
         //Update
         public void UpdateBadgeDoors(Badge badge)
